@@ -1,4 +1,16 @@
 var dataURLs;
+var anchorP = 1/2;
+var startP;
+var currentP;
+
+function mouseOver(event) {
+  start(event.offsetX);
+}
+
+function touchStart(event) {
+  var touch = event.touches[0];
+  start(touch.pageX - touch.target.offsetLeft);
+}
 
 function mouseMove(event) {
   move(event.offsetX);
@@ -9,13 +21,33 @@ function touchMove(event) {
   move(touch.pageX - touch.target.offsetLeft);
 }
 
+function start(x) {
+  var width = document.getElementById('outputImg').width;
+  if (currentP) {
+    anchorP = anchorP + currentP - startP;
+  }
+  startP = x / width;
+}
+
 function move(x) {
   var width = document.getElementById('outputImg').width;
   show(x / width);
 }
 
 function show(p) {
-  var f = Math.floor(p * dataURLs.length);
+  if (!p) {
+    var f = Math.floor(1/2 * dataURLs.length);
+    document.getElementById('outputImg').src = dataURLs[f];
+    return;
+  }
+  currentP = p;
+  if (anchorP + currentP - startP < 0) {
+    anchorP = 0 - (currentP - startP);
+  }
+  if (1 < anchorP + currentP - startP) {
+    anchorP = 1 - (currentP - startP);
+  }
+  var f = Math.floor((anchorP + currentP - startP) * dataURLs.length);
   f = Math.max(f, 0);
   f = Math.min(f, dataURLs.length - 1);
   document.getElementById('outputImg').src = dataURLs[f];
@@ -29,7 +61,7 @@ function loadfile(filename) {
   http.onreadystatechange = function() {
     if (http.readyState == 4) {
       dataURLs = decode(http.responseText);
-      show(1/2);
+      show(null);
     }
   };
   http.send(null);

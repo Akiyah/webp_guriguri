@@ -17,7 +17,10 @@ img {
 </style>
 </head>
 <body>
-<img id="outputImg" onmousemove="mouseMove(event)" ontouchmove="touchMove(event)" />
+  <img id="outputImg"
+    onmouseover="mouseOver(event)" onmousemove="mouseMove(event)"
+    ontouchstart="touchStart(event)"  ontouchmove="touchMove(event)"
+  />
 <script>
 window.onload = function() {
   loadfile("img/sakura.webp");
