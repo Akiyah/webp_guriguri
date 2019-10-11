@@ -22,10 +22,6 @@ function show(f) {
   document.getElementById('outputImg').src = dataURLs[f];
 }
 
-window.onload = function() {
-  loadfile("img/sakura.webp");
-};
-
 function loadfile(filename) {
   var http = new XMLHttpRequest();
   http.open('get', filename);

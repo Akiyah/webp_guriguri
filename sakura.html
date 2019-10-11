@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>webp guriguri</title>
+<script type="text/javascript" src="./lib/libwebp-0.6.0.min.js"></script>
+<script type="text/javascript" src="./lib/demux.js"></script>
+<script type="text/javascript" src="./script.js"></script>
+<style>
+img {
+  border: solid thin gray;
+}
+@media only screen and (max-width: 1000px) {
+  img {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+<img id="outputImg" onmousemove="mouseMove(event)" ontouchmove="touchMove(event)" />
+<script>
+window.onload = function() {
+  loadfile("img/sakura.webp");
+};
+</script>
+</body>
+</html>
