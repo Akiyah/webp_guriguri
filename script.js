@@ -6,19 +6,18 @@ function mouseMove(event) {
 
 function touchMove(event) {
   var touch = event.touches[0];
-  var x = touch.pageX - touch.target.offsetLeft;
-  move(x);
+  move(touch.pageX - touch.target.offsetLeft);
 }
 
 function move(x) {
   var width = document.getElementById('outputImg').width;
-  var f = Math.floor(x / width * dataURLs.length)
-  f = Math.max(f, 0);
-  f = Math.min(f, dataURLs.length - 1);
-  show(f);
+  show(x / width);
 }
 
-function show(f) {
+function show(p) {
+  var f = Math.floor(p * dataURLs.length);
+  f = Math.max(f, 0);
+  f = Math.min(f, dataURLs.length - 1);
   document.getElementById('outputImg').src = dataURLs[f];
 }
 
@@ -30,7 +29,7 @@ function loadfile(filename) {
   http.onreadystatechange = function() {
     if (http.readyState == 4) {
       dataURLs = decode(http.responseText);
-      show(0);
+      show(1/2);
     }
   };
   http.send(null);
