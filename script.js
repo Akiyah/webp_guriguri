@@ -35,7 +35,7 @@ function move(x) {
 }
 
 function show(p) {
-  if (!p) {
+  if (p == null) {
     var f = Math.floor(1/2 * dataURLs.length);
     document.getElementById('outputImg').src = dataURLs[f];
     return;
